@@ -1,0 +1,72 @@
+<div class="container mt-5">
+  <h1 class="text-center mb-4">Address Book</h1>
+
+  <div class="row">
+    <!-- Form Section -->
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-header bg-primary text-white">
+          {{ isEditMode ? 'Edit Contact' : 'Create Contact' }}
+        </div>
+        <div class="card-body">
+          <form (ngSubmit)="isEditMode ? updateContact() : createContact()">
+            <div class="form-group">
+              <label for="telephoneNumber">Telephone Number</label>
+              <input [(ngModel)]="contactForm.telephoneNumber" name="telephoneNumber" id="telephoneNumber" class="form-control" placeholder="Enter Telephone Number" [readonly]="isEditMode" required />
+            </div>
+            <div class="form-group mt-3">
+              <label for="firstName">First Name</label>
+              <input [(ngModel)]="contactForm.firstName" name="firstName" id="firstName" class="form-control" placeholder="Enter First Name" required />
+            </div>
+            <div class="form-group mt-3">
+              <label for="lastName">Last Name</label>
+              <input [(ngModel)]="contactForm.lastName" name="lastName" id="lastName" class="form-control" placeholder="Enter Last Name" required />
+            </div>
+            <div class="form-group mt-3">
+              <label for="country">Country</label>
+              <input [(ngModel)]="contactForm.country" name="country" id="country" class="form-control" placeholder="Enter Country" required />
+            </div>
+            <div class="form-group mt-3">
+              <label for="city">City</label>
+              <input [(ngModel)]="contactForm.city" name="city" id="city" class="form-control" placeholder="Enter City" required />
+            </div>
+            <div class="form-group mt-3">
+              <label for="street">Street</label>
+              <input [(ngModel)]="contactForm.street" name="street" id="street" class="form-control" placeholder="Enter Street" required />
+            </div>
+            <div class="form-group mt-3">
+              <label for="streetNumber">Street Number</label>
+              <input [(ngModel)]="contactForm.streetNumber" name="streetNumber" id="streetNumber" class="form-control" placeholder="Enter Street Number" required />
+            </div>
+            <div class="d-grid gap-2 mt-4">
+              <button type="submit" class="btn btn-success">{{ isEditMode ? 'Update' : 'Create' }}</button>
+              <button type="button" class="btn btn-secondary" *ngIf="isEditMode" (click)="resetForm()">Cancel</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- Contact List Section -->
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-header bg-primary text-white">
+          Contacts List
+        </div>
+        <ul class="list-group list-group-flush">
+          <li *ngFor="let contact of contacts" class="list-group-item d-flex justify-content-between align-items-center">
+            <div>
+              <strong>{{ contact.telephoneNumber }}</strong><br />
+              {{ contact.firstName }} {{ contact.lastName }}<br />
+              {{ contact.street }} {{ contact.streetNumber }}, {{ contact.city }}, {{ contact.country }}
+            </div>
+            <div>
+              <button class="btn btn-sm btn-warning me-2" (click)="populateForm(contact)">Edit</button>
+              <button class="btn btn-sm btn-danger" (click)="deleteContact(contact.telephoneNumber)">Delete</button>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
